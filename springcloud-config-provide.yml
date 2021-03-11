@@ -4,38 +4,60 @@ spring:
     - dev
 ---
 server:
-  port: 7001
-
-spring: 
-  profiles: dev
+  port: 8001
+spring:
+  profiles :dev
   application:
-    name: microservicecloud-config-eureka-7001
-
+    name: microservicecloud-config-provide-8001
+  datasource:
+    url: jdbc:mysql://localhost:3306/microservice1?serverTimezone=UTC&useUnicode=true&useSSL=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+## ×¢²á·şÎñ
 eureka:
-  instance:
-    hostname: eureka7001 #eurekaæœåŠ¡ç«¯çš„å®ä¾‹åç§°
   client:
-    register-with-eureka: false     #falseè¡¨ç¤ºä¸å‘æ³¨å†Œä¸­å¿ƒæ³¨å†Œè‡ªå·±ã€‚
-    fetch-registry: false     #falseè¡¨ç¤ºè‡ªå·±ç«¯å°±æ˜¯æ³¨å†Œä¸­å¿ƒ
     service-url:
-      #defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
-      defaultZone: http://eureka7001:7001/eureka
-
+      #defaultZone: http://localhost:7001/eureka
+      defaultZone: http://eureka7001:7001/eureka/,http://eureka7002:7002/eureka/
+  instance:
+    instance-id: microservicecloud-config-provide-8001
+    prefer-ip-address: true     #·ÃÎÊÂ·¾¶¿ÉÒÔÏÔÊ¾IPµØÖ·
+    hostname: ${spring.cloud.client.ipAddress}
+info:
+  app.name: nwnusun-microservicecloud
+  company.name: www.nwnusun.com
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$
+  
 ---
 server:
-  port: 7002
-
-spring: 
-  profiles: test
+  port: 8002
+spring:
+  profiles :test
   application:
-    name: microservicecloud-config-eureka-7002
-
+    name: microservicecloud-config-provide-8002
+  datasource:
+    url: jdbc:mysql://localhost:3306/microservice1?serverTimezone=UTC&useUnicode=true&useSSL=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+## ×¢²á·şÎñ
 eureka:
-  instance:
-    hostname: eureka7002 #eurekaæœåŠ¡ç«¯çš„å®ä¾‹åç§°
   client:
-    register-with-eureka: false     #falseè¡¨ç¤ºä¸å‘æ³¨å†Œä¸­å¿ƒæ³¨å†Œè‡ªå·±ã€‚
-    fetch-registry: false     #falseè¡¨ç¤ºè‡ªå·±ç«¯å°±æ˜¯æ³¨å†Œä¸­å¿ƒ
     service-url:
-      #defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
-      defaultZone: http://eureka7002:7002/eureka
+      #defaultZone: http://localhost:7001/eureka
+      defaultZone: http://eureka7001:7001/eureka/,http://eureka7002:7002/eureka/
+  instance:
+    instance-id: microservicecloud-config-provide-8002
+    prefer-ip-address: true     #·ÃÎÊÂ·¾¶¿ÉÒÔÏÔÊ¾IPµØÖ·
+    hostname: ${spring.cloud.client.ipAddress}
+info:
+  app.name: nwnusun-microservicecloud
+  company.name: www.nwnusun.com
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$
